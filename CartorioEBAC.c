@@ -100,67 +100,108 @@ int deletar() //Função responsavel por deletar os usuários no sistema
 	printf("Digite o CPF a ser deletado: "); //coletando informação do usuário
 	scanf("%s", cpf); //%s refere-se a string
 	
-	remove(cpf); 
-	
 	FILE *file; //cria o arquivo
 	file = fopen(cpf,"r");  //cria o arquivo e o "r" significa ler
 	
 	if(file == NULL) //se o arquivo for igual a nulo
 	{
-		printf("O usuário não se encontra no sistema!. \n"); //Fala pro usuário que não localizou o arquivo
-		system("pause");
+		printf("O usuário não se encontra no sistema!. \n");//Fala pro usuário que não localizou o arquivo
+		system("pause");//pausa o sistema
 	}
+		else
+	{
+		fclose(file);//fecha o arquivo
+		remove(cpf);//remove o dado CPF
+		FILE *file;//cria o arquivo
+		file = fopen(cpf,"r");//cria o arquivo e o "r" significa ler
+		printf("Usuário deletado com sucesso!.\n");//Fala pro usuário que não localizou o arquivo
+		system("pause");//pausa o sistema
+	}
+	fclose(file); //fecha o arquivo
 }
 
 int main()
 {
+	setlocale(LC_ALL, "Portuguese"); // Definindo a Linguagem
+	
 	int opcao = 0; // Definindo variáveis
 	int laco = 1;
+	char logindigitado[10]="a";
+	char senhadigitada[10]="b";
+	int comparacao;
+	int comparacao2;
 	
-	for(laco=1; laco=1;)
+	printf("### Cartório da EBAC ###\n\n");
+	printf("Login de administrador!\n\nDigite o seu login: ");
+	scanf("%s",logindigitado);
+	
+	comparacao = strcmp(logindigitado, "admin");
+	
+	if(comparacao == 0)
 	{
-
-		system("cls"); // Limpeza de mensagens
+		printf("Digite a sua senha: ");
+		scanf("%s",senhadigitada);
 		
-		setlocale(LC_ALL, "Portuguese"); // Definindo a Linguagem
-	
-		printf("### Cartório da EBAC ###\n\n"); // Início do menu
-		printf("Escolha a opção desejada do menu:\n\n");
-		printf("\t1 - Registrar nomes\n");
-		printf("\t2 - Consultar nomes\n");
-		printf("\t3 - Deletar nomes\n"); 
-		printf("\t4 - Sair do sistema\n\n");
-		printf("Opção: "); //Fim do menu
-	
-		scanf("%d", &opcao); // Armazenando a escolha do usuário
-	
-		system("cls"); // Limpeza de mensagens
-	
-		switch(opcao) //inicio da seleção do menu
+		comparacao2 = strcmp(senhadigitada, "123456");
+		
+		if(comparacao2 == 0)
 		{
-			case 1:
-			registro(); //chamada de funções
-			break;
-			
-			case 2:
-			consulta(); //chamada de funções
-			break;
-			
-			case 3:
-			deletar(); //chamada de funções
-			break;
-			
-			case 4:
-			printf("Obrigado por utilizar o sistema!\n");
-			return 0;
-			break;
-			
-			default:
-			printf("Essa opção não está disponível!\n");
-			system("pause");
-			break;
-		}
+			for(laco=1; laco=1;)
+			{
+
+				system("cls"); // Limpeza de mensagens
 		
+				setlocale(LC_ALL, "Portuguese"); // Definindo a Linguagem
+	
+				printf("### Cartório da EBAC ###\n\n"); // Início do menu
+				printf("Escolha a opção desejada do menu:\n\n");
+				printf("\t1 - Registrar nomes\n");
+				printf("\t2 - Consultar nomes\n");
+				printf("\t3 - Deletar nomes\n"); 
+				printf("\t4 - Sair do sistema\n\n");
+				printf("Opção: "); //Fim do menu
+	
+				scanf("%d", &opcao); // Armazenando a escolha do usuário
+	
+				system("cls"); // Limpeza de mensagens
+	
+				switch(opcao) //inicio da seleção do menu
+				{
+					case 1:
+					registro(); //chamada de funções
+					break;
+			
+					case 2:
+					consulta(); //chamada de funções
+					break;
+			
+					case 3:
+					deletar(); //chamada de funções
+					break;
+			
+					case 4:
+					printf("Obrigado por utilizar o sistema!\n");
+					return 0;
+					break;
+			
+					default:
+					printf("Essa opção não está disponível!\n");
+					system("pause");
+					break;
+				}
+		
+			}
+		}
+		else
+		{
+			system("cls");
+			printf("Senha incorreta!");	
+		}
+	}
+	else
+	{	
+		system("cls");
+		printf("Login incorreta!");
+		return 0;	
 	}
 }
-
